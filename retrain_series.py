@@ -103,6 +103,9 @@ def train_model(model, dataloaders, criterion, optimizer, num_epochs, model_name
 
     since = time.time()
 
+    all_losses_t = []
+    all_acc_t = []
+
     val_acc_history = []
 
     best_model_wts = copy.deepcopy(model.state_dict())
