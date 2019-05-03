@@ -40,10 +40,10 @@ if __name__ == "__main__":
 
                 for this_file in os.listdir(path):
 
-                    command1 = "mv " + os.path.join(path,this_file) + " " + os.path.join(path, tack_on + this_file)
+                    command1 = "sudo mv " + os.path.join(path,this_file) + " " + os.path.join(path, tack_on + this_file)
                     os.system(command1)
                     sub_path = type_article + "/" + tack_on + this_file
-                    command2 = "mv " + os.path.join(path, tack_on + this_file) + " " + os.path.join("./data/images/", sub_path)
+                    command2 = "sudo mv " + os.path.join(path, tack_on + this_file) + " " + os.path.join("./data/images/", sub_path)
                     os.system(command2)
 
     for this_dir in os.listdir("./data/images/"):
