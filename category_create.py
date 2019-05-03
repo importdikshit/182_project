@@ -16,9 +16,38 @@ if __name__ == "__main__":
     for this_dir in directories:
         os.system("sudo mkdir " + this_dir)
 
+    type_counts = {}
+
+
+    for this_dir in os.listdir("./data/img/"):
+
+        if this_dir[0] != ".":
+
+            type_article = this_dir.split("_")[-1]
+
+    #         if "&" in this_dir:
+    #             this_dir = this_dir.replace("&", "\&")
+    #             this_dir = this_dir.replace(";", "\;")
+    # #             this_dir = this_dir.replace("'", "\\'")
+
+            if type_article in type_counts:
+                type_counts[type_article] += 1
+            else:
+                type_counts[type_article] = 0
+
+
+            tack_on = type_article + str(type_counts[type_article])
+
+            path = "./data/img/" + this_dir + "/"
+
+            for this_file in os.listdir(path):
+                 os.rename(os.path.join(path,this_file), os.path.join(path, tack_on + this_file))
+    #             print(os.path.join(path, tack_on + this_file))
+    #         print(tack_on)
+
 
     # Move all the files by category
-    for this_dir in tqdm.tqdm(os.listdir("./data/img/")):
+    for this_dir in os.listdir("./data/img/"):
 
         if this_dir[0] != ".":
 
@@ -29,7 +58,7 @@ if __name__ == "__main__":
                 this_dir = this_dir.replace(";", "\;")
     #             this_dir = this_dir.replace("'", "\\'")
 
-            os.system("mv ./data/img/" + this_dir + "/* ./data/images/" + type_article + "/")
+            os.system("sudo mv ./data/img/" + this_dir + "/* ./data/images/" + type_article + "/")
 
 
     for this_dir in os.listdir("./data/images/"):
