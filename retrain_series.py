@@ -158,6 +158,9 @@ def train_model(model, dataloaders, criterion, optimizer, num_epochs, model_name
                 running_loss += loss.item() * inputs.size(0)
                 running_corrects += torch.sum(preds == labels.data)
 
+                all_losses_t += [loss.item() * inputs.size(0)]
+                all_acc_t += [torch.sum(preds == labels.data)/(torch.sum(preds == preds))]
+
             epoch_loss = running_loss / len(dataloaders[phase].dataset)
             epoch_acc = running_corrects.double() / len(dataloaders[phase].dataset)
 
@@ -179,10 +182,10 @@ def train_model(model, dataloaders, criterion, optimizer, num_epochs, model_name
 
     # load best model weights
     model.load_state_dict(best_model_wts)
-    dir_name = "./saved_models/" + model_name + "/."
-    model.save(model.save_state(), dir_name)
+    # dir_name = "./saved_models/" + model_name + "/."
+    # model.save(model.save_state(), dir_name)
 
-    return model, val_acc_history
+    return model, val_acc_history, all_losses_t, all_acc_t
 
 
 # PREPARE THE DATA
@@ -207,14 +210,14 @@ if __name__ == '__main__':
 
     these_models = ["resnet", "vgg", "alexnet", "inception"]
 
-    output_classes = 2
-    num_classes = 2
+    output_classes = 50
+    num_classes = 50
     feature_extract = True
 
     # Hyperparameters
 
     batch_size = 64
-    num_epochs = 1
+    num_epochs = 3
 
     for model_name in these_models[:1]:
 
@@ -274,7 +277,7 @@ if __name__ == '__main__':
         criterion = nn.CrossEntropyLoss()
 
         # Train and evaluate
-        model_ft, hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft,
+        model_ft, hist, losses_t, acc_t = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft,
                                  num_epochs, model_name, is_inception=(model_name=="inception"))
 
 
