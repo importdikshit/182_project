@@ -284,5 +284,10 @@ if __name__ == '__main__':
                                  num_epochs, model_name, is_inception=(model_name=="inception"))
 
 
+        plt.plot(np.arange(len(losses_t)), losses_t)
+        plt.plot(np.arange(len(acc_t)), acc_t)
+        plt.savefig("./losses.png")
+        plt.savefig("./acc.png")
+
         # plt.plot(np.arange(num_epochs), hist)
         # plt.title("Validation Accuracies for ")
