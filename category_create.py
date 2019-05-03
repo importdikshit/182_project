@@ -11,13 +11,11 @@ if __name__ == "__main__":
     directories = ["./data/images/" + this_root + "/" for this_root in this_file]
     os.system("sudo mkdir ./data/images/")
 
-
     # Create all the subdirectories
     for this_dir in directories:
         os.system("sudo mkdir " + this_dir)
 
     type_counts = {}
-
 
     for this_dir in os.listdir("./data/img/"):
 
@@ -42,23 +40,8 @@ if __name__ == "__main__":
 
             for this_file in os.listdir(path):
 
-                command = "sudo mv " + os.path.join(path,this_file) + " " + os.path.join(path, tack_on + this_file)
+                command = "sudo mv " + os.path.join(path,this_file) + " " + "./data/images/" + type_article + "/"
                 os.system(command)
-
-
-    # Move all the files by category
-    for this_dir in os.listdir("./data/img/"):
-
-        if this_dir[0] != ".":
-
-            type_article = this_dir.split("_")[-1]
-
-            if "&" in this_dir:
-                this_dir = this_dir.replace("&", "\&")
-                this_dir = this_dir.replace(";", "\;")
-    #             this_dir = this_dir.replace("'", "\\'")
-
-            os.system("sudo mv ./data/img/" + this_dir + "/* ./data/images/" + type_article + "/")
 
 
     for this_dir in os.listdir("./data/images/"):
