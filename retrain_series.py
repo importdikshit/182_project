@@ -219,7 +219,7 @@ if __name__ == '__main__':
 
     # Hyperparameters
 
-    batch_size = 64
+    batch_size = 256
     num_epochs = 3
 
     for model_name in these_models[:1]:
