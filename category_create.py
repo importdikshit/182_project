@@ -1,4 +1,5 @@
 import os
+import re
 
 if __name__ == "__main__":
 
@@ -17,32 +18,33 @@ if __name__ == "__main__":
 
     type_counts = {}
 
+    type_counts = {}
+
     for this_dir in os.listdir("./data/img/"):
 
         if this_dir[0] != ".":
 
-            type_article = this_dir.split("_")[-1]
+            if re.match("^[a-zA-Z0-9_.-]*$", this_dir):
 
-    #         if "&" in this_dir:
-    #             this_dir = this_dir.replace("&", "\&")
-    #             this_dir = this_dir.replace(";", "\;")
-    # #             this_dir = this_dir.replace("'", "\\'")
+                type_article = this_dir.split("_")[-1]
 
-            if type_article in type_counts:
-                type_counts[type_article] += 1
-            else:
-                type_counts[type_article] = 0
+                if type_article in type_counts:
+                    type_counts[type_article] += 1
+                else:
+                    type_counts[type_article] = 0
 
 
-            tack_on = type_article + str(type_counts[type_article])
+                tack_on = type_article + str(type_counts[type_article])
 
-            path = "./data/img/" + this_dir + "/"
+                path = os.path.join("./data/img/", this_dir)
 
-            for this_file in os.listdir(path):
+                for this_file in os.listdir(path):
 
-                command = "sudo mv " + os.path.join(path,this_file) + " " + "./data/images/" + type_article + "/"
-                os.system(command)
-
+                    command1 = "mv " + os.path.join(path,this_file) + " " + os.path.join(path, tack_on + this_file)
+                    os.system(command1)
+                    sub_path = type_article + "/" + tack_on + this_file
+                    command2 = "mv " + os.path.join(path, tack_on + this_file) + " " + os.path.join("./data/images/", sub_path)
+                    os.system(command2)
 
     for this_dir in os.listdir("./data/images/"):
 
