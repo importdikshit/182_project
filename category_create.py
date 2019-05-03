@@ -41,9 +41,9 @@ if __name__ == "__main__":
             path = "./data/img/" + this_dir + "/"
 
             for this_file in os.listdir(path):
-                 os.rename(os.path.join(path,this_file), os.path.join(path, tack_on + this_file))
-    #             print(os.path.join(path, tack_on + this_file))
-    #         print(tack_on)
+
+                command = "sudo mv " + os.path.join(path,this_file) + " " + os.path.join(path, tack_on + this_file)
+                os.system(command)
 
 
     # Move all the files by category
