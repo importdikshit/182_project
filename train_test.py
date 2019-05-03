@@ -1,5 +1,6 @@
 import os
 import re
+import numpy as np
 
 if __name__ == "__main__":
 
@@ -14,12 +15,14 @@ if __name__ == "__main__":
 
     root_dir = "./data/images/"
 
-    for this_folder in os.listdir(root_dir):
+root_dir = "./data/images/"
 
-        # SPLIT
+for this_folder in os.listdir(root_dir):
+
+    if this_folder[0] != '.':
 
         all_images = np.array(os.listdir(os.path.join(root_dir, this_folder)))
-        all_images = np.random.shuffle(all_images)
+        np.random.shuffle(all_images)
 
         first = int(len(all_images)*0.85)
 
@@ -27,12 +30,10 @@ if __name__ == "__main__":
         val_dat = all_images[first:]
 
         for this_image in train_dat:
-
             move_to = "./data/train/"
-            os.system("sudo mv " + os.path.join(root_dir, this_folder, this_image) + " " os.path.join(move_to, this_folder, this_image))
+            os.system("mv " + os.path.join(root_dir, this_folder, this_image) + " " + os.path.join(move_to, this_folder, this_image))
 
 
         for this_image in val_dat:
-
             move_to = "./data/val/"
-            os.system("sudo mv " + os.path.join(root_dir, this_folder, this_image) + " " os.path.join(move_to, this_folder, this_image))
+            os.system("mv " + os.path.join(root_dir, this_folder, this_image) + " " + os.path.join(move_to, this_folder, this_image))
